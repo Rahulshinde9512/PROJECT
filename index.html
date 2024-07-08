@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Bliss - Explore the World</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header .logo {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #f8f9fa; 
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1525479696025-0746d8d67b8e') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            padding: 0 20px:
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 123, 255, 0.6); 
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .hero .btn {
+            background: #28a745;
+            color: #fff;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero .btn:hover {
+            background: #218838;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .destination-list, .services-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .destination, .service {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 30%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .destination img, .service img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .destination:hover, .service:hover {
+            transform: translateY(-5px); 
+        }
+
+        #contact form {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #contact form label {
+            margin-bottom: 10px;
+            display: block;
+            font-weight: bold;
+        }
+
+        #contact form input[type="text"],
+        #contact form input[type="email"],
+        #contact form textarea {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        #contact form input[type="text"]:focus,
+        #contact form input[type="email"]:focus,
+        #contact form textarea:focus {
+            outline: none;
+            border-color: #007bff; 
+        }
+
+        #contact form button {
+            background: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #contact form button:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">TOUR</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <div class="hero">
+                <h1>LET'S GO TO DREAM PLACE</h1>
+                <p>Explore the world with our exclusive travel packages</p>
+                <a href="#destinations" class="btn">View Destinations</a>
+            </div>
+        </section>
+        <section id="destinations">
+            <h2>Popular Destinations</h2>
+            <div class="destination-list">
+                
+                <div class="destination">
+                    <img src="Bali.jpg" alt="Bali">
+                    <h3>Bali</h3>
+                    <p>Bali is known for its forested volcanic mountains, iconic rice paddies, beaches and coral reefs.</p>
+                </div>
+                <div class="destination">
+                    <img src="nw.jpg" alt="New York">
+                    <h3>New York</h3>
+                    <p>The City That Never Sleeps offers a whirlwind of activities and sights.</p>
+                </div>
+            </div>
+        </section>
+        <section id="services">
+            <h2>Our Services</h2>
+            <div class="services-list">
+                <div class="service">
+                    <h3>Custom Travel Packages</h3>
+                    <p>We create personalized travel packages to suit your needs and preferences.</p>
+                </div>
+                <div class="service">
+                    <h3>Flight and Hotel Booking</h3>
+                    <p>Book flights and hotels at the best prices with our efficient booking system.</p>
+                </div>
+                <div class="service">

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, rgba(196, 214, 244, 0.8), rgba(21, 19, 19, 0.8)), 
+                        url('your-background-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"], input[type="date"], select, button {
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid rgba(0, 123, 255, 0.5);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(1, 6, 11, 0.5);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #task-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 6px solid rgba(239, 141, 246, 0.5);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .task-item.complete {
+            text-decoration: line-through;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .task-item.high {
+            border-left-color: #ff4c4c;
+            background-color: rgba(255, 230, 230, 0.8);
+        }
+
+        .task-item.medium {
+            border-left-color: #ffbf07;
+            background-color: rgba(255, 249, 230, 0.8);
+        }
+
+        .task-item.low {
+            border-left-color: #28a745;
+            background-color: rgba(230, 255, 230, 0.8);
+        }
+
+        .task-details {
+            flex: 1;
+            text-align: left;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .complete-button, .delete-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .complete-button:hover {
+            color: #1c7430;
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+
+        .delete-button:hover {
+            color: #a71d2a;
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="form-container">
+            <input type="text" id="task-input" placeholder="New Task">
+            <input type="date" id="due-date">
+            <select id="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <input type="text" id="category-input" placeholder="Category">
+            <button id="add-task-button">Add Task</button>
+        </div>
+        <ul id="task-list"></ul>
+    </div>
+    <script>
+        document.getElementById('add-task-button').addEventListener('click', addTask);
+
+        function addTask() {
+            const taskInput = document.getElementById('task-input');
+            const dueDateInput = document.getElementById('due-date');
+            const priorityInput = document.getElementById('priority');
+            const categoryInput = document.getElementById('category-input');
+
+            const taskText = taskInput.value;
+            const dueDate = dueDateInput.value;
+            const priority = priorityInput.value;
+            const category = categoryInput.value;
+
+            if (taskText === '') {
+                alert('Please enter a task.');
+                return;
+            }
+
+            const taskList = document.getElementById('task-list');
+            const taskItem = document.createElement('li');
+            taskItem.classList.add('task-item', priority);
+
+            const taskDetails = document.createElement('div');
+            taskDetails.classList.add('task-details');
+            taskDetails.innerHTML = <strong>${taskText}</strong><br><small>Due: ${dueDate} | Category: ${category}</small>;
+
+            const taskActions = document.createElement('div');
+            taskActions.classList.add('task-actions');
+
+            const completeButton = document.createElement('button');
+            completeButton.classList.add('complete-button');
+            completeButton.innerHTML = '✔';
+            completeButton.addEventListener('click', () => {
+                taskItem.classList.toggle('complete');
+            });
+
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-button');
+            deleteButton.innerHTML = '✖';
+            deleteButton.addEventListener('click', () => {
+                taskItem.remove();
+            });
+
+            taskActions.appendChild(completeButton);
+            taskActions.appendChild(deleteButton);
+            taskItem.appendChild(taskDetails);
+            taskItem.appendChild(taskActions);
+            taskList.appendChild(taskItem);
+
+            taskInput.value = '';
+            dueDateInput.value = '';
+            priorityInput.value = 'low';
+            categoryInput.value = '';
+        }
+
+        // Function to load tasks if needed
+        function loadTasks() {
+            // Implement if needed
+        }
+    </script>
+</body>
+</html>

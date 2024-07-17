@@ -1,223 +1,208 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, rgba(196, 214, 244, 0.8), rgba(21, 19, 19, 0.8)), 
-                        url('your-background-image.jpg') no-repeat center center fixed;
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #fff;
-        }
-
-        .container {
-            max-width: 600px;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        h1 {
-            color: #007bff;
-            margin-bottom: 30px;
-        }
-
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        input[type="text"], input[type="date"], select, button {
-            padding: 12px;
-            font-size: 16px;
-            border: 2px solid rgba(0, 123, 255, 0.5);
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #333;
-        }
-
-        input[type="text"]:focus, input[type="date"]:focus, select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(1, 6, 11, 0.5);
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #task-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 30px;
-        }
-
-        .task-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border-left: 6px solid rgba(239, 141, 246, 0.5);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .task-item.complete {
-            text-decoration: line-through;
-            background-color: rgba(255, 255, 255, 0.6);
-        }
-
-        .task-item.high {
-            border-left-color: #ff4c4c;
-            background-color: rgba(255, 230, 230, 0.8);
-        }
-
-        .task-item.medium {
-            border-left-color: #ffbf07;
-            background-color: rgba(255, 249, 230, 0.8);
-        }
-
-        .task-item.low {
-            border-left-color: #28a745;
-            background-color: rgba(230, 255, 230, 0.8);
-        }
-
-        .task-details {
-            flex: 1;
-            text-align: left;
-        }
-
-        .task-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .complete-button, .delete-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-        }
-
-        .complete-button:hover {
-            color: #1c7430;
-            background-color: rgba(40, 167, 69, 0.1);
-        }
-
-        .delete-button:hover {
-            color: #a71d2a;
-            background-color: rgba(220, 53, 69, 0.1);
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>To-Do List</h1>
-        <div class="form-container">
-            <input type="text" id="task-input" placeholder="New Task">
-            <input type="date" id="due-date">
-            <select id="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-            <input type="text" id="category-input" placeholder="Category">
-            <button id="add-task-button">Add Task</button>
-        </div>
-        <ul id="task-list"></ul>
-    </div>
-    <script>
-        document.getElementById('add-task-button').addEventListener('click', addTask);
-
-        function addTask() {
-            const taskInput = document.getElementById('task-input');
-            const dueDateInput = document.getElementById('due-date');
-            const priorityInput = document.getElementById('priority');
-            const categoryInput = document.getElementById('category-input');
-
-            const taskText = taskInput.value;
-            const dueDate = dueDateInput.value;
-            const priority = priorityInput.value;
-            const category = categoryInput.value;
-
-            if (taskText === '') {
-                alert('Please enter a task.');
-                return;
-            }
-
-            const taskList = document.getElementById('task-list');
-            const taskItem = document.createElement('li');
-            taskItem.classList.add('task-item', priority);
-
-            const taskDetails = document.createElement('div');
-            taskDetails.classList.add('task-details');
-            taskDetails.innerHTML = <strong>${taskText}</strong><br><small>Due: ${dueDate} | Category: ${category}</small>;
-
-            const taskActions = document.createElement('div');
-            taskActions.classList.add('task-actions');
-
-            const completeButton = document.createElement('button');
-            completeButton.classList.add('complete-button');
-            completeButton.innerHTML = '✔';
-            completeButton.addEventListener('click', () => {
-                taskItem.classList.toggle('complete');
-            });
-
-            const deleteButton = document.createElement('button');
-            deleteButton.classList.add('delete-button');
-            deleteButton.innerHTML = '✖';
-            deleteButton.addEventListener('click', () => {
-                taskItem.remove();
-            });
-
-            taskActions.appendChild(completeButton);
-            taskActions.appendChild(deleteButton);
-            taskItem.appendChild(taskDetails);
-            taskItem.appendChild(taskActions);
-            taskList.appendChild(taskItem);
-
-            taskInput.value = '';
-            dueDateInput.value = '';
-            priorityInput.value = 'low';
-            categoryInput.value = '';
-        }
-
-        // Function to load tasks if needed
-        function loadTasks() {
-            // Implement if needed
-        }
-    </script>
-</body>
-</html>
+:root {
+    --gradient: linear-gradient(
+      180deg,
+      rgba(45, 112, 1253, 0.73) 0%,
+      #163e92 100%
+    );
+    --dark: #001747;
+    --grey: #b1bacb;
+    --grey-border: rgba(210, 210, 210, 0.75);
+    --grey-light: #eeeeee;
+    --grey-dark: $405175;
+    --blue: #2d70fd;
+    --green: #00d8a7;
+    --white: #ffffff;
+  }
+  
+  body {
+    background: var(--gradient);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .btn {
+    color: var(--white);
+    font-size: 1.1rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.3rem;
+    background-color: var(--blue);
+    border: none;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+  
+  /* Todo Container */
+  
+  .todo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 2rem;
+    background: var(--white);
+    padding: 3rem;
+    height: 50%;
+    width: 60%;
+    box-shadow: 0 1rem 3rem 1rem rgba(0, 23, 71, 0.15);
+    max-width: 30rem;
+  }
+  
+  h2 {
+    text-transform: uppercase;
+    height: 3rem;
+    color: var(--dark);
+    text-align: center;
+  }
+  
+  .input {
+    position: relative;
+    display: flex;
+  }
+  
+  .input-field {
+    width: 100%;
+    border: 0.06rem solid #d2d2d2bf;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    font-size: 1rem;
+  }
+  
+  input[type="text"]::placeholder {
+    color: var(--grey);
+  }
+  
+  .todo-container {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  ul {
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+  }
+  
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.3rem;
+  }
+  
+  #todoList p {
+    display: flex;
+    gap: 1rem;
+    color: var(--dark);
+    align-items: center;
+  }
+  
+  #todoList .disabled {
+    color: #8f98a8;
+  }
+  
+  .disabled {
+    display: flex;
+    text-decoration: line-through;
+  }
+  
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+  }
+  
+  input[type="checkbox"]::before {
+    content: "\2713";
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.7rem;
+    text-align: center;
+    border: 0.06rem solid var(--grey-border);
+    border-radius: 50%;
+    color: transparent;
+  }
+  
+  input[type="checkbox"]:checked::before {
+    color: var(--white);
+    background-color: var(--green);
+    border: 0.06rem solid var(--green);
+    border-radius: 50%;
+  }
+  
+  .counter {
+    border: 0.06rem solid var(--grey-light);
+  }
+  
+  .counter-container {
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    color: var(--grey);
+  }
+  
+  .counter-container p {
+    align-self: center;
+  }
+  
+  .counter-container button {
+    border: none;
+    background-color: transparent;
+    color: var(--grey);
+    font-size: 1rem;
+  }
+  
+  .footer {
+    display: flex;
+    gap: 1.8rem;
+    background-color: var(--white);
+    padding: 1.2rem;
+    border-radius: 0.5rem;
+  }
+  
+  .made-by,
+  .author {
+    font-size: 0.9rem;
+  }
+  
+  .made-by {
+    color: var(--grey-dark);
+  }
+  
+  .author {
+    color: var(--blue);
+    font-weight: bold;
+  }
+  
+  .scroll {
+    height: 15rem;
+    scrollbar-width: thin;
+  }
+  
+  .scroll::-webkit-scrollbar {
+    width: 0.6rem;
+  }
+  
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: var(--blue);
+    border-radius: 0.5rem;
+  }
+  
+  .scroll::-webkit-scrollbar-track {
+    display: none;
+  }
